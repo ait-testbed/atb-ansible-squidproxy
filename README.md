@@ -17,6 +17,7 @@ squid_networks:
 
 # Log file location for Squid proxy access logs
 squid_logfile: "/var/log/squid/access.log"
+```
 
 
 ## License
