@@ -1,15 +1,14 @@
 # Squidproxy Role
-=========
 
 An Ansible role that installs and configures Squid as a proxy server. It allows you to define ACLs for specific networks and logs HTTP/HTTPS activity.
 
 ## Requirements
-------------
+
 
 Any Debian or RedHat-based Linux should work (e.g., Ubuntu, CentOS, RHEL).
 
 ## Role Variables
---------------
+
 
 ```yaml
 # List of networks with name and CIDR to allow access through the proxy
@@ -21,11 +20,11 @@ squid_logfile: "/var/log/squid/access.log"
 
 
 ## License
--------
+
 
 GPL-3.0
 
 ## Author Information
-------------------
+
 
 Thorina Boenke (https://www.ait.ac.at)
