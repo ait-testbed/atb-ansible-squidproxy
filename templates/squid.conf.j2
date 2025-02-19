@@ -1,0 +1,15 @@
+# Squid Configuration
+
+# Define ACLs for allowed networks
+{% for net in squid_networks %}
+acl {{ net.name }} src {{ net.cidr }}
+{% endfor %}
+
+# Allow access from these networks
+{% for net in squid_networks %}
+http_access allow {{ net.name }}
+{% endfor %}
+
+# Log all activity
+access_log {{ squid_logfile }} squid
+

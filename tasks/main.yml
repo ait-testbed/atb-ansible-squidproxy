@@ -1,0 +1,21 @@
+- name: Ensure Squid is installed (Debian)
+  ansible.builtin.apt:
+    name: squid
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Ensure Squid is installed (RedHat)
+  ansible.builtin.yum:
+    name: squid
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Deploy Squid configuration
+  ansible.builtin.template:
+    src: squid.conf.j2
+    dest: /etc/squid/squid.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart Squid
+
