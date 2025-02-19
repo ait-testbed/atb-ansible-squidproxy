@@ -1,5 +1,7 @@
 # Squid Configuration
 
+http_port 3128
+
 # Define ACLs for allowed networks
 {% for net in squid_networks %}
 acl {{ net.name }} src {{ net.cidr }}
