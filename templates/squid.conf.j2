@@ -10,6 +10,14 @@ acl {{ net.name }} src {{ net.cidr }}
 http_access allow {{ net.name }}
 {% endfor %}
 
+# Allow HTTPS (CONNECT method)
+acl SSL_ports port 443
+acl Safe_ports port 80
+acl Safe_ports port 443
+
+# Only allow CONNECT to SSL ports
+http_access allow CONNECT SSL_ports
+
 # Log all activity
 access_log {{ squid_logfile }} squid
 
