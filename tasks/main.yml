@@ -17,5 +17,11 @@
     owner: root
     group: root
     mode: "0644"
-  notify: Restart Squid
+
+- name: Restart Squid
+  ansible.builtin.systemd:
+    name: squid
+    state: restarted
+    enabled: yes
+  when: ansible_os_family in ["Debian", "RedHat"]
 
