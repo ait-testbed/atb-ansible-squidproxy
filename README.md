@@ -5,7 +5,7 @@ An Ansible role that installs and configures Squid as a proxy server. It allows 
 ## Requirements
 
 
-Any Debian or RedHat-based Linux should work (e.g., Ubuntu, CentOS, RHEL).
+Any Debian or RedHat-based Linux.
 
 ## Role Variables
 
