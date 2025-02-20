@@ -14,6 +14,8 @@ http_access allow {{ net.name }}
 
 http_access deny all
 
+# Customize log format
+logformat custom %tl.%03tu %>a %Ss/%03>Hs %<st %rm %ru %[un %Sh/%<a %mt
 # Log all activity
-access_log {{ squid_logfile }} squid
+access_log {{ squid_logfile }} custom
 
