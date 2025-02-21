@@ -15,7 +15,9 @@ http_access allow {{ net.name }}
 http_access deny all
 
 # Customize log format
-logformat custom %tl.%03tu %>a %Ss/%03>Hs %<st %rm %ru %[un %Sh/%<a %mt
+# 2025-02-21T09:40:23.943 +0000 192.168.50.21 TCP_MISS/503 3943 GET http://www.google.com/ - HIER_DIRECT/142.251.208.100 text/html
+logformat custom %tl{%Y-%m-%dT%H:%M:%S.}%tu %tl{%z} %>a %Ss/%03>Hs %<st %rm %ru %[un %Sh/%<a %mt
+
 # Log all activity
 access_log {{ squid_logfile }} custom
 
