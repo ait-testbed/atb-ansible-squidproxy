@@ -19,5 +19,5 @@ http_access deny all
 # logformat custom {% raw %}%tl{%Y-%m-%dT%H:%M:%S.}%tu %tl{%z} %>a %Ss/%03>Hs %<st %rm %ru %[un %Sh/%<a %mt{% endraw %}
 
 # Log all activity
-access_log {{ squid_logfile }} squid
+access_log {{ squid_logfile }} custom
 
