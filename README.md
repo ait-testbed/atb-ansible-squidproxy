@@ -1,37 +1,57 @@
-# Squidproxy Role
+# Ansible Role: Squid Proxy 
 
-An Ansible role that installs and configures Squid as a proxy server. It allows you to define ACLs for specific networks and logs HTTP/HTTPS activity.
+Installs and configures the Squid proxy server on Debian/Ubuntu and RHEL/CentOS/Fedora systems.
+
+This role performs the following actions:
+
+*   Installs the `squid` package using the appropriate package manager (`apt` or `yum`).
+*   Deploys a configuration file (`/etc/squid/squid.conf`) based on a Jinja2 template (`templates/squid.conf.j2`).
+*   Configures Access Control Lists (ACLs) based on the provided `squid_networks` variable to allow client access.
+*   Sets the access log file location.
+*   Restarts and enables the `squid` service using `systemd`.
 
 ## Requirements
 
-
-Any Debian or RedHat-based Linux.
+*   **Target OS:** Debian/Ubuntu or RHEL/CentOS/Fedora based distributions.
+*   **Root Access:** Requires `become: yes` as the role installs packages, manages configuration files in `/etc`, and controls system services.
+*   **Systemd:** Assumes `systemd` is the init system for service management.
+*   **Ansible Version:** 2.9 or higher recommended.
 
 ## Role Variables
 
+Available variables are listed below, along with default values (see `defaults/main.yml` - *Note: Defaults should be defined there*):
 
-```yaml
-# List of networks with name and CIDR to allow access through the proxy
-squid_networks:
-  - { name: "usernet", cidr: "192.168.50.0/24" }
+| Variable        | Required | Default                             | Type                | Description                                                                               |
+| --------------- | -------- | ----------------------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
+| `squid_networks`| Yes      | `[]` *(Example in defaults needed)* | List of Dictionaries | A list of network definitions allowed access. Each dict needs `name` (ACL name) and `cidr`. |
+| `squid_logfile` | No       | `"/var/log/squid/access.log"`       | String              | The full path to the Squid access log file specified in the configuration.                |
 
-# Log file location for Squid proxy access logs
-squid_logfile: "/var/log/squid/access.log"
-```
+**Note:** You *must* define `squid_networks` with at least one network for clients to be able to use the proxy, unless your `squid.conf.j2` template has other permissive rules. It's recommended to provide a sensible default list in `defaults/main.yml` or explicitly set it when calling the role.
+
+## Dependencies
+
+None.
+
 ## Example Playbook
 
 ```yaml
 ---
-- hosts: localhost
-  become: true
-  roles:
-    - role: squidproxy
-      vars:
-        squid_networks:
-          - { name: "usernet", cidr: "192.168.50.0/24" }
-        squid_logfile: "/var/log/squid/access.log"
-```
+- hosts: proxy_servers # Or specific host group
+  become: yes
+  vars:
+    # Define the networks allowed to use this proxy
+    squid_networks:
+      - { name: "internal_lan", cidr: "192.168.1.0/24" }
+      - { name: "vpn_clients", cidr: "10.8.0.0/24" }
 
+    # Optionally override the default log file location
+    # squid_logfile: "/data/logs/squid_access.log"
+
+  roles:
+    # Reference the role, adjust name/path as needed
+    - ansible-role-squidproxy
+    # Or use Galaxy name if installed from there:
+    # - your_namespace.squidproxy
 
 ## License
 
