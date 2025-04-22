@@ -23,7 +23,7 @@ Available variables are listed below, along with default values (see `defaults/m
 
 | Variable        | Required | Default                             | Type                | Description                                                                               |
 | --------------- | -------- | ----------------------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
-| `squid_networks`| Yes      | `[]` *(Example in defaults needed)* | List of Dictionaries | A list of network definitions allowed access. Each dict needs `name` (ACL name) and `cidr`. |
+| `squid_networks`| Yes      | `[]`  | List of Dictionaries | A list of network definitions allowed access. Each dict needs `name` (ACL name) and `cidr`. |
 | `squid_logfile` | No       | `"/var/log/squid/access.log"`       | String              | The full path to the Squid access log file specified in the configuration.                |
 
 **Note:** You *must* define `squid_networks` with at least one network for clients to be able to use the proxy, unless your `squid.conf.j2` template has other permissive rules. It's recommended to provide a sensible default list in `defaults/main.yml` or explicitly set it when calling the role.
