@@ -35,10 +35,8 @@ squid_logfile: "/var/log/squid/access.log"
 
 ## License
 
-
 GPL-3.0
 
 ## Author Information
-
 
 Thorina Boenke (https://www.ait.ac.at)
