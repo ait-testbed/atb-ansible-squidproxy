@@ -50,8 +50,6 @@ None.
   roles:
     # Reference the role, adjust name/path as needed
     - ansible-role-squidproxy
-    # Or use Galaxy name if installed from there:
-    # - your_namespace.squidproxy
 
 ## License
 
